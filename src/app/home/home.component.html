@@ -1,0 +1,66 @@
+<app-add-workout (workoutAdded)="addWorkoutToTable($event)"></app-add-workout>
+
+<!-- Search Bar for filtering by username -->
+<div class="ht-mt-16-px ht-flex ht-justify-start">
+  <input
+    type="text"
+    placeholder="Search by Username"
+    class="ht-search-bar ht-ml-8-px ht-p-3 ht-w-full ht-max-w-md ht-border-2 ht-border-sky-950 ht-rounded-2xl ht-focus:outline-none ht-focus:ring-2 ht-focus:ring-blue-300"
+    [(ngModel)]="searchText"
+    (input)="filterWorkouts()"
+  />
+</div>
+
+<!-- Workout Type Filter Dropdown -->
+<div class="p-field">
+  <p-dropdown
+    id="workoutTypeFilter"
+    [options]="workoutTypes"
+    [(ngModel)]="selectedWorkoutType"
+    (onChange)="filterData()"
+    placeholder="Select Workout Type"
+    [styleClass]="'filter-dropdown'"
+  ></p-dropdown>
+</div>
+
+<div class="ht-w-full ht-mt-4 ht-shadow-lg ht-rounded-lg ht-m-8-px">
+  <p-table
+    [value]="filteredWorkouts"
+    [paginator]="true"
+    [rows]="itemsPerPage"
+    [rowsPerPageOptions]="[5, 10, 15, 20]"
+    [totalRecords]="filteredWorkouts.length"
+    (onLazyLoad)="onLazyLoad($event)"
+  >
+    <ng-template pTemplate="header">
+      <tr class="ht-bg-sky-950">
+        <th class="ht-px-4 ht-py-2 ht-text-left ht-text-white">Username</th>
+        <th class="ht-px-4 ht-py-2 ht-text-left ht-text-white">
+          Workout Types
+        </th>
+        <th class="ht-px-4 ht-py-2 ht-text-left ht-text-white">
+          Number of Workouts
+        </th>
+        <th class="ht-px-4 ht-py-2 ht-text-left ht-text-white">
+          Total Workout Minutes
+        </th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-user>
+      <tr class="ht-border-b ht-border-gray-200 hover:ht-bg-gray-500">
+        <td class="ht-px-4 ht-py-2">{{ user.userName }}</td>
+        <td class="ht-px-4 ht-py-2">
+          <div
+            *ngFor="let type of user.workoutTypes"
+            class="ht-inline-block ht-bg-sky-950 ht-text-white ht-rounded-md ht-px-2 ht-py-1 ht-mb-1 ht-mr-1"
+          >
+            {{ type }}
+          </div>
+        </td>
+        <td class="ht-px-4 ht-py-2">{{ user.totalWorkouts }}</td>
+        <td class="ht-px-4 ht-py-2">{{ user.totalMinutes }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

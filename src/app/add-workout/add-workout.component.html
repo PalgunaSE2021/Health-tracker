@@ -1,0 +1,71 @@
+<button
+  pButton
+  label="Start Today"
+  icon="pi pi-arrow-right"
+  class="ht-px-24-px ht-bg-sky-950 ht-h-12 ht-rounded-2xl ht-mt-24-px ht-mb-12-px ht-ml-8-px"
+  (click)="showDialog()"
+></button>
+
+<p-dialog
+  header="Add Workout"
+  [(visible)]="dialogVisible"
+  [modal]="true"
+  [styleClass]="'dialog-container'"
+>
+  <div class="p-fluid">
+    <!-- User Name Input -->
+    <div class="p-field">
+      <label for="userName">User Name</label>
+      <input
+        id="userName"
+        type="text"
+        pInputText
+        [(ngModel)]="userName"
+        class="ht-w-full"
+      />
+      <small *ngIf="nameError" class="p-error">User name is required.</small>
+    </div>
+
+    <!-- Workout Duration Input -->
+    <div class="p-field">
+      <label for="workoutDuration">Workout Duration (minutes)</label>
+      <input
+        id="workoutDuration"
+        type="number"
+        pInputText
+        [(ngModel)]="workoutDuration"
+        class="w-full"
+      />
+      <small *ngIf="durationError" class="p-error">Duration is required.</small>
+    </div>
+
+    <!-- Workout Type Dropdown -->
+    <div class="p-field">
+      <label for="workoutType">Workout Type</label>
+      <p-dropdown
+        id="workoutType"
+        [options]="workoutTypes"
+        [(ngModel)]="selectedWorkoutType"
+        placeholder="Select a type"
+      ></p-dropdown>
+      <small *ngIf="typeError" class="p-error"
+        >Please select a workout type.</small
+      >
+    </div>
+  </div>
+
+  <div class="p-dialog-footer">
+    <button
+      pButton
+      label="Add"
+      (click)="addWorkout()"
+      class="p-button-primary"
+    ></button>
+    <button
+      pButton
+      label="Cancel"
+      (click)="hideDialog()"
+      class="p-button-secondary"
+    ></button>
+  </div>
+</p-dialog>
