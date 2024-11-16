@@ -4,6 +4,7 @@ import { TableModule } from 'primeng/table';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { DropdownModule } from 'primeng/dropdown';
+import { PaginatorModule } from 'primeng/paginator';
 
 @Component({
   selector: 'app-home',
@@ -16,6 +17,7 @@ import { DropdownModule } from 'primeng/dropdown';
     TableModule,
     FormsModule,
     DropdownModule,
+    PaginatorModule,
   ],
 })
 export class HomeComponent {
