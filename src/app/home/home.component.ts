@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { DropdownModule } from 'primeng/dropdown';
 import { PaginatorModule } from 'primeng/paginator';
 
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -68,6 +69,7 @@ export class HomeComponent {
         workoutTypes: [workout.workoutType],
         totalWorkouts: 1,
         totalMinutes: workout.workoutDuration,
+        workoutData: [workout.workoutDuration],
       });
     }
 
@@ -96,5 +98,14 @@ export class HomeComponent {
   onLazyLoad(event: any) {
     this.page = event.first / event.rows + 1;
     this.itemsPerPage = event.rows;
+  }
+
+  deleteWorkout(index: number) {
+    // Remove the workout from the main list
+    this.workouts.splice(index, 1);
+    // Update the filtered list
+    this.filterData();
+    // Save the updated list to localStorage
+    this.saveWorkoutsToLocalStorage();
   }
 }
