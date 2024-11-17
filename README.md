@@ -1,27 +1,29 @@
-# HealthTracker
+This is a Workout Tracker Application built with Angular and PrimeNG. The app allows users to log and track their workouts, filter workout data by user and workout type, and display the data in a dynamic table. It also features local storage to retain workout data between sessions, ensuring a seamless experience for users.
+🛠️ Tech Stack
+Framework: Angular (Standalone Components)
+UI Library: PrimeNG for rich UI components
+CSS Framework: Tailwind CSS and custom SCSS
+Storage: Local Storage for persistent data.
+🎯 Features
+Add Workout: A form modal to add new workouts, including user name, workout type, and duration.
+Local Storage: Automatically saves workouts to local storage to persist data across sessions.
+Dynamic Table: Displays a paginated and filterable table of workouts using PrimeNG's p-table component.
+Search and Filter:
+Search by Username: Real-time filtering based on the entered username.
+Filter by Workout Type: Dropdown selection for filtering workouts by type (Cardio, Strength, Flexibility).
+Responsive Design: Mobile-friendly layout with adaptive components.
+Error Handling: Inline error messages for form validation.
+Delete Functionality: Allows users to delete workouts from the list.
+Pagination: The project uses PrimeNG's p-table component with pagination to efficiently display large workout data sets. The pagination feature is activated when the number of items exceeds the set threshold (>= 5 items). 
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.1.
+Installation
+Clone the repository:
+git clone https://github.com/your-username/workout-tracker-app.git
+cd workout-tracker-app
 
-## Development server
+Install dependencies:
+npm install
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Start the development server:
+ng serve
+The app will be available at http://localhost:4200.
