@@ -13,7 +13,6 @@
   [styleClass]="'dialog-container'"
 >
   <div class="p-fluid">
-    <!-- User Name Input -->
     <div class="p-field">
       <label for="userName">User Name</label>
       <input
@@ -21,12 +20,11 @@
         type="text"
         pInputText
         [(ngModel)]="userName"
-        class="ht-w-full"
+        class="ht-w-full ht-mt-4-px ht-py-4-px ht-mb-12-px"
       />
       <small *ngIf="nameError" class="p-error">User name is required.</small>
     </div>
 
-    <!-- Workout Duration Input -->
     <div class="p-field">
       <label for="workoutDuration">Workout Duration (minutes)</label>
       <input
@@ -34,12 +32,11 @@
         type="number"
         pInputText
         [(ngModel)]="workoutDuration"
-        class="w-full"
+        class="w-full ht-mt-4-px ht-py-4-px ht-mb-12-px"
       />
       <small *ngIf="durationError" class="p-error">Duration is required.</small>
     </div>
 
-    <!-- Workout Type Dropdown -->
     <div class="p-field">
       <label for="workoutType">Workout Type</label>
       <p-dropdown
@@ -47,6 +44,7 @@
         [options]="workoutTypes"
         [(ngModel)]="selectedWorkoutType"
         placeholder="Select a type"
+        [styleClass]="'workout-dropdown'"
       ></p-dropdown>
       <small *ngIf="typeError" class="p-error"
         >Please select a workout type.</small
@@ -54,12 +52,12 @@
     </div>
   </div>
 
-  <div class="p-dialog-footer">
+  <div class="p-dialog-footer ht-mt-64-px">
     <button
       pButton
       label="Add"
       (click)="addWorkout()"
-      class="p-button-primary"
+      class="p-button-primary ht-mr-16-px"
     ></button>
     <button
       pButton

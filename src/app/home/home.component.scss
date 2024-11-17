@@ -1,0 +1,34 @@
+.ht-input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.ht-btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.ht-btn-primary {
+  background-color: #007bff;
+  color: white;
+}
+
+.ht-flex {
+  display: flex;
+}
+
+.user-list {
+  width: 25%;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.chart-container {
+  width: 75%;
+}
