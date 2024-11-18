@@ -5,6 +5,8 @@ import { InputTextModule } from 'primeng/inputtext';
 import { DropdownModule } from 'primeng/dropdown';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { Workout } from '../models/workout.model';
+import { WorkoutType } from '../models/workout-type.model';
 
 @Component({
   selector: 'app-add-workout',
@@ -20,12 +22,12 @@ import { CommonModule } from '@angular/common';
   ],
 })
 export class AddWorkoutComponent {
-  @Output() workoutAdded = new EventEmitter<any>();
+  @Output() workoutAdded = new EventEmitter<Partial<Workout>>();
 
   dialogVisible: boolean = false;
   userName: string = '';
   workoutDuration: number | null = null;
-  workoutTypes = [
+  workoutTypes: WorkoutType[] = [
     { label: 'Cardio', value: 'Cardio' },
     { label: 'Strength', value: 'Strength' },
     { label: 'Flexibility', value: 'Flexibility' },
@@ -59,6 +61,7 @@ export class AddWorkoutComponent {
   }
 
   addWorkout() {
+    // Input error validation
     this.resetErrors();
 
     if (!this.userName) {
@@ -71,6 +74,7 @@ export class AddWorkoutComponent {
       this.typeError = true;
     }
 
+    // In case all the values are appropriate
     if (this.userName && this.workoutDuration && this.selectedWorkoutType) {
       const workout = {
         userName: this.userName,
