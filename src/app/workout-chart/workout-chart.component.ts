@@ -17,26 +17,20 @@ import { Workout } from '../models/workout.model';
 })
 export class WorkoutChartComponent implements OnInit, OnChanges {
   @Input() selectedWorkoutForChart: Workout | null = null;
-
   workoutData: any;
   basicOptions: any;
 
   constructor() {}
 
+  // Method to prepare chart data and chart options
   private prepareChart() {
     const documentStyle = getComputedStyle(document.documentElement);
-    const textColor = 'white';
-    const textColorSecondary = 'white';
-    const surfaceBorder = '#082f49';
-    // const textColor = documentStyle.getPropertyValue('--text-color');
-    // const textColorSecondary = documentStyle.getPropertyValue(
-    //   '--text-color-secondary'
-    // );
-    // const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
+    const textColor = 'white'; // Text color for chart labels
+    const textColorSecondary = 'white'; // Secondary text color for chart ticks
+    const surfaceBorder = '#082f49'; // Border color for chart grid lines
 
     this.workoutData = {
-      // labels: ['Q1', 'Q2'],
-      // data: [100, 500],
+      // Mapping workout data to chart labels and data points
       labels: this.selectedWorkoutForChart?.workoutsData.map(
         (workout) => workout.workoutType
       ),
@@ -51,7 +45,7 @@ export class WorkoutChartComponent implements OnInit, OnChanges {
             'rgba(75, 192, 192, 0.2)',
             'rgba(54, 162, 235, 0.2)',
             'rgba(153, 102, 255, 0.2)',
-          ],
+          ], // Background colors for the chart bars
           borderColor: [
             'rgb(255, 159, 64)',
             'rgb(75, 192, 192)',
@@ -77,7 +71,7 @@ export class WorkoutChartComponent implements OnInit, OnChanges {
         y: {
           beginAtZero: true,
           ticks: {
-            color: textColorSecondary,
+            color: textColorSecondary, // Sets the color of the y-axis ticks
           },
           grid: {
             color: surfaceBorder,
@@ -86,11 +80,11 @@ export class WorkoutChartComponent implements OnInit, OnChanges {
         },
         x: {
           ticks: {
-            color: textColorSecondary,
+            color: textColorSecondary, // Sets the color of the x-axis ticks
           },
           grid: {
             color: surfaceBorder,
-            drawBorder: false,
+            drawBorder: false, // Hides the border of the grid
           },
         },
       },
@@ -99,11 +93,11 @@ export class WorkoutChartComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (!!changes['selectedWorkoutForChart'].currentValue) {
-      this.prepareChart();
+      this.prepareChart(); // Prepares the chart data and options if the workout data changes
     }
   }
 
   ngOnInit(): void {
-    this.prepareChart();
+    this.prepareChart(); // Prepares the chart data and options when the component initializes
   }
 }

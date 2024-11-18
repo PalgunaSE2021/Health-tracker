@@ -1,3 +1,4 @@
+<!-- Button to Open Add Workout Dialog -->
 <button
   pButton
   label="Add Workout"
@@ -6,6 +7,7 @@
   (click)="showDialog()"
 ></button>
 
+<!-- Add Workout Modal Dialog -->
 <p-dialog
   header="Add Workout"
   [(visible)]="dialogVisible"
@@ -13,6 +15,7 @@
   [styleClass]="'dialog-container'"
 >
   <div class="p-fluid">
+    <!-- User Name Input Field with Validation -->
     <div class="p-field ht-mb-16-px">
       <label for="userName">User Name</label>
       <input
@@ -23,8 +26,10 @@
         class="ht-w-full ht-mt-4-px ht-py-4-px"
       />
       <small *ngIf="nameError" class="p-error">User name is required.</small>
+      <!-- Validation message if empty -->
     </div>
 
+    <!-- Workout Duration Input Field with Validation -->
     <div class="p-field ht-mb-16-px">
       <label for="workoutDuration">Workout Duration (minutes)</label>
       <input
@@ -35,8 +40,10 @@
         class="w-full ht-mt-4-px ht-py-4-px"
       />
       <small *ngIf="durationError" class="p-error">Duration is required.</small>
+      <!-- Validation message if empty -->
     </div>
 
+    <!-- Workout Type Dropdown with Validation -->
     <div class="p-field ht-mb-16-px">
       <label for="workoutType">Workout Type</label>
       <p-dropdown
@@ -49,16 +56,21 @@
       <small *ngIf="typeError" class="p-error"
         >Please select a workout type.</small
       >
+      <!-- Validation message if not selected -->
     </div>
   </div>
 
+  <!-- Dialog Footer with Cancel and Add buttons -->
   <div class="p-dialog-footer ht-mt-64-px">
+    <!-- Cancel Button to Close the Dialog -->
     <button
       pButton
       label="Cancel"
       (click)="hideDialog()"
       class="p-button-secondary ht-py-8-px ht-px-16-px ht-rounded-xl ht-mr-16-px"
     ></button>
+
+    <!-- Add Button to Save the Workout -->
     <button
       pButton
       label="Add"
