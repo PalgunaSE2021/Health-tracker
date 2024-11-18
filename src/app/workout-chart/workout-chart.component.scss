@@ -4,8 +4,10 @@
   border: 2px solid #1e3a5f;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  max-width: 600px;
-  min-width: 300px;
+  width: 100%; /* Make it fill the available width */
+  max-width: 1000px; /* Set a larger maximum width */
+  min-width: 600px; /* Set a minimum width */
+  height: 350px; /* Adjust the height to make the chart larger */
 }
 
 .chart-container:hover {

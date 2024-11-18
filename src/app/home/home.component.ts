@@ -37,6 +37,7 @@ import { UserSelectorComponent } from '../user-selector/user-selector.component'
 })
 export class HomeComponent implements OnInit {
   workouts: Workout[] = [];
+  selectedUser: string = '';
   filteredWorkouts: Workout[] = [];
   searchText: string = '';
   selectedWorkoutType: 'Cardio' | 'Strength' | 'Flexibility' | 'All types' =
@@ -132,6 +133,11 @@ export class HomeComponent implements OnInit {
 
     // Trigger the popup animation
     this.triggerPopupAnimation();
+
+    if (this.userList.length === 1) {
+      // If this is the first user, set the selected workout for chart
+      this.updateSelectedWorkoutForChart(this.userList[0]);
+    }
   }
 
   // Triggers the animation for the popup of newly added workout
@@ -206,6 +212,11 @@ export class HomeComponent implements OnInit {
   updateSelectedWorkoutForChart(userName: string) {
     this.selectedWorkoutForChart =
       this.workouts.find((workout) => workout.userName === userName) || null;
+  }
+
+  // Method to update the selected user
+  updateSelectedUser(user: string) {
+    this.selectedUser = user;
   }
 
   // Lifecycle hook to load workouts when component is initialized
