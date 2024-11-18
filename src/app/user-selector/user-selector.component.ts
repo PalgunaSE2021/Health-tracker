@@ -16,18 +16,18 @@ import {
   styleUrl: './user-selector.component.scss',
 })
 export class UserSelectorComponent implements OnChanges {
-  @Output() updateSelectedUser = new EventEmitter<string>();
+  @Output() updateSelectedUser = new EventEmitter<string>(); // EventEmitter to send the selected user to the parent component
 
   @Input() userList: string[] = [];
 
+  // Method to handle user selection and emit the selected user
   updateUser(user: string) {
-    console.log('user:', user);
-    this.updateSelectedUser.emit(user);
+    this.updateSelectedUser.emit(user); // Emits the selected user to the parent component
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['userList'].currentValue) {
-      this.userList = this.userList;
+      this.userList = this.userList; // Updates the user list when it changes
     }
   }
 }

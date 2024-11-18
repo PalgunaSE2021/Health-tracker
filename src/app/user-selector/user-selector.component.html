@@ -1,9 +1,11 @@
 <div class="user-list-container">
+  <!-- Iterates over userList and creates a user card for each user -->
   <div
     *ngFor="let user of userList"
     (click)="updateUser(user)"
     class="user-card"
   >
     {{ user }}
+    <!-- Displays the user's name or info -->
   </div>
 </div>
