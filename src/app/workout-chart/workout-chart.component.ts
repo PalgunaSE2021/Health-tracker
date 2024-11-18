@@ -25,9 +25,9 @@ export class WorkoutChartComponent implements OnInit, OnChanges {
   // Method to prepare chart data and chart options
   private prepareChart() {
     const documentStyle = getComputedStyle(document.documentElement);
-    const textColor = 'white'; // Text color for chart labels
-    const textColorSecondary = 'white'; // Secondary text color for chart ticks
-    const surfaceBorder = '#082f49'; // Border color for chart grid lines
+    const textColor = 'white';
+    const textColorSecondary = 'white';
+    const surfaceBorder = '#082f49';
 
     this.workoutData = {
       // Mapping workout data to chart labels and data points
@@ -57,13 +57,14 @@ export class WorkoutChartComponent implements OnInit, OnChanges {
       ],
     };
 
-    console.log('this.workoutData:', this.workoutData);
-
     this.basicOptions = {
       plugins: {
         legend: {
           labels: {
             color: textColor,
+            font: {
+              size: 16, // Increase legend font size
+            },
           },
         },
       },
@@ -71,7 +72,10 @@ export class WorkoutChartComponent implements OnInit, OnChanges {
         y: {
           beginAtZero: true,
           ticks: {
-            color: textColorSecondary, // Sets the color of the y-axis ticks
+            color: textColorSecondary,
+            font: {
+              size: 14,
+            },
           },
           grid: {
             color: surfaceBorder,
@@ -80,7 +84,10 @@ export class WorkoutChartComponent implements OnInit, OnChanges {
         },
         x: {
           ticks: {
-            color: textColorSecondary, // Sets the color of the x-axis ticks
+            color: textColorSecondary,
+            font: {
+              size: 14,
+            },
           },
           grid: {
             color: surfaceBorder,

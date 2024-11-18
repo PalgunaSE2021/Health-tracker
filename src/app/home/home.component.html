@@ -8,44 +8,46 @@
 
   <!-- Subheading for Workout Dashboard -->
   <h2
-    class="ht-mt-64-px ht-flex ht-justify-center ht-text-2xl ht-font-semibold ht-text-sky-100 ht-text-center ht-mb-1 ht-pb-2 ht-border-b-2 ht-border-sky-800 ht-shadow-lg ht-rounded-md ht-bg-sky-950 ht-w-full ht-max-w-2xl ht-mx-auto ht-ml-6-px"
+    class="ht-mt-64-px ht-flex ht-justify-center ht-text-2xl ht-font-semibold ht-text-sky-100 ht-text-center ht-mb-1 ht-pb-2 ht-border-b-2 ht-border-sky-800 ht-shadow-lg ht-rounded-md ht-w-full ht-max-w-2xl ht-mx-auto ht-ml-6-px"
   >
     Workout Dashboard
   </h2>
-
-  <!-- Component for adding a workout -->
-  <app-add-workout (workoutAdded)="addWorkoutToTable($event)"></app-add-workout>
-  <!-- Toast message component for adding/deleting workout -->
-  <p-toast></p-toast>
-
   <!-- Section for Search and Filter functionality -->
-  <h2 class="ht-text-xl ht-mb-8-px ht-font-bold ht-text-gray-800">
+  <h2 class="ht-text-xl ht-font-bold ht-text-gray-800 ht-mb--48-px">
     Search and Filter
   </h2>
+  <div class="ht-flex ht-flex-row ht-align-start">
+    <!-- Toast message component for adding/deleting workout -->
+    <p-toast></p-toast>
 
-  <div class="search-filter-container">
-    <div class="ht-flex ht-justify-start">
-      <!-- Search bar to filter workouts by Username -->
-      <input
-        type="text"
-        placeholder="Search by Username"
-        class="ht-search-bar ht-p-3 ht-w-full ht-max-w-md ht-border-2 ht-border-sky-950 ht-rounded-2xl ht-focus:outline-none ht-focus:ring-2 ht-focus:ring-blue-300"
-        [(ngModel)]="searchText"
-        (input)="filterWorkoutData()"
-      />
-    </div>
+    <div class="search-filter-container">
+      <div class="ht-flex ht-justify-start">
+        <!-- Search bar to filter workouts by Username -->
+        <input
+          type="text"
+          placeholder="Search by Username"
+          class="ht-search-bar ht-p-3 ht-w-full ht-max-w-md ht-border-2 ht-border-sky-950 ht-rounded-2xl ht-focus:outline-none ht-focus:ring-2 ht-focus:ring-blue-300"
+          [(ngModel)]="searchText"
+          (input)="filterWorkoutData()"
+        />
+      </div>
 
-    <!-- Dropdown to filter workouts by Workout Type -->
-    <div class="p-field">
-      <p-dropdown
-        id="workoutTypeFilter"
-        [options]="workoutTypes"
-        [(ngModel)]="selectedWorkoutType"
-        (onChange)="filterWorkoutData()"
-        placeholder="Select Workout Type"
-        [styleClass]="'filter-dropdown'"
-      ></p-dropdown>
+      <!-- Dropdown to filter workouts by Workout Type -->
+      <div class="p-field">
+        <p-dropdown
+          id="workoutTypeFilter"
+          [options]="workoutTypes"
+          [(ngModel)]="selectedWorkoutType"
+          (onChange)="filterWorkoutData()"
+          placeholder="Select Workout Type"
+          [styleClass]="'filter-dropdown'"
+        ></p-dropdown>
+      </div>
     </div>
+    <!-- Component for adding a workout -->
+    <app-add-workout
+      (workoutAdded)="addWorkoutToTable($event)"
+    ></app-add-workout>
   </div>
 
   <!-- Table for displaying workouts -->
@@ -125,9 +127,9 @@
   <div class="ht-flex ht-flex-col ht-items-center ht-mt-16">
     <!-- Heading for Workout Analysis -->
     <h2
-      class="ht-text-2xl ht-font-semibold ht-text-sky-100 ht-text-center ht-mb-4 ht-pb-2 ht-border-b-2 ht-border-sky-800 ht-shadow-lg ht-rounded-md ht-bg-sky-950 ht-w-full ht-max-w-2xl"
+      class="ht-text-2xl ht-font-semibold ht-text-sky-100 ht-text-center ht-mb-4 ht-pb-2 ht-border-b-2 ht-border-sky-800 ht-shadow-lg ht-rounded-md ht-w-full ht-max-w-2xl"
     >
-      User's Workout Analysis
+      Workout Analysis
     </h2>
 
     <!-- User Selector and Chart Section -->
@@ -137,6 +139,7 @@
         <!-- Display the user selector and workout chart if users are available -->
         <app-user-selector
           (updateSelectedUser)="updateSelectedWorkoutForChart($event)"
+          [selectedUser]="selectedUser"
           [userList]="userList"
         ></app-user-selector>
         <app-workout-chart
