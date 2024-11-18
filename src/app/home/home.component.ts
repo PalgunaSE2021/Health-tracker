@@ -62,6 +62,7 @@ export class HomeComponent implements OnInit {
     this.filteredWorkouts = this.workouts;
   }
 
+  // Load the workouts from local storage when the component initializes
   loadWorkoutsFromLocalStorage(): void {
     const storedWorkouts = this.workoutTrackerService.loadWorkouts();
     if (storedWorkouts && storedWorkouts.length > 0) {
@@ -72,16 +73,19 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  // Save the workouts to local storage
   saveWorkoutsToLocalStorage(): void {
     this.workoutTrackerService.saveWorkouts(this.workouts);
   }
 
+  // Adds a new workout to the table
   addWorkoutToTable(workout: any) {
     const newWorkoutEntry: WorkoutData = {
       workoutType: workout.workoutType,
       workoutDuration: workout.workoutDuration,
     };
-    // check if the user already has other workout entries
+
+    // Check if the user already has other workout entries
     const existingWorkoutEntry = this.workouts.find(
       (existingWorkout) =>
         existingWorkout.userName.toLowerCase() ===
@@ -89,20 +93,19 @@ export class HomeComponent implements OnInit {
     );
 
     if (existingWorkoutEntry) {
-      // Add new workout entry to workoutsData of existing user
+      // Add new workout entry to the existing user's data
       existingWorkoutEntry.workoutsData.push(newWorkoutEntry);
-      // Update total workout count and duration for existing user
       existingWorkoutEntry.workoutsCount++;
-      existingWorkoutEntry.workoutDuration =
-        existingWorkoutEntry.workoutDuration + newWorkoutEntry.workoutDuration;
-      // If the existing user has previous entries of same workoutType, we don't need to update it again
+      existingWorkoutEntry.workoutDuration += newWorkoutEntry.workoutDuration;
+
+      // Add new workout type only if not already present
       if (
         !existingWorkoutEntry.workoutTypes.includes(newWorkoutEntry.workoutType)
       ) {
         existingWorkoutEntry.workoutTypes.push(newWorkoutEntry.workoutType);
       }
     } else {
-      // Frame new workout object for new user
+      // Create a new workout entry for a new user
       const newWorkout = {
         userName: workout.userName,
         workoutTypes: [workout.workoutType],
@@ -113,14 +116,14 @@ export class HomeComponent implements OnInit {
 
       // Add the new workout at the beginning of the array
       this.workouts.unshift(newWorkout);
-      // Add user name in user list to show in charts section
       this.userList.unshift(workout.userName);
     }
 
-    // This can be optionally turned off: User experience will be odd if user adds a new workout that does not passes the filter because the added value will not be visible in list view
+    // Apply the filter and update local storage
     this.filterWorkoutData();
     this.saveWorkoutsToLocalStorage();
 
+    // Show success message
     this.messageService.add({
       severity: 'success',
       summary: 'Workout Added',
@@ -131,8 +134,8 @@ export class HomeComponent implements OnInit {
     this.triggerPopupAnimation();
   }
 
+  // Triggers the animation for the popup of newly added workout
   triggerPopupAnimation(): void {
-    // Add the animation class to the first workout element
     const workoutElements = document.querySelectorAll('.workout-item');
     if (workoutElements.length > 0) {
       const firstElement = workoutElements[0];
@@ -145,16 +148,18 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  // Filters the workouts based on the search text and selected workout type
   filterWorkoutData() {
     this.filteredWorkouts = this.workouts;
-    // if searchText exists, filter workout data by user name that matches search text first
+
+    // Filter by search text if available
     if (this.searchText?.length > 0) {
       this.filteredWorkouts = this.workouts.filter((workout) =>
         workout.userName.toLowerCase().includes(this.searchText.toLowerCase())
       );
     }
 
-    // Filter by workout type only when the workout type is not null or not All types
+    // Filter by selected workout type if applicable
     if (this.selectedWorkoutType && this.selectedWorkoutType !== 'All types') {
       this.filteredWorkouts = this.filteredWorkouts.filter((workout) =>
         workout.workoutTypes.includes(this.selectedWorkoutType)
@@ -162,22 +167,24 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  // Handles lazy loading for paginated data
   onLazyLoad(event: any) {
     this.page = event.first / event.rows + 1;
     this.itemsPerPage = event.rows;
   }
 
+  // Confirms deletion of a workout and deletes it from the list
   deleteWorkout(index: number) {
     this.confirmationService.confirm({
       message: 'Are you sure you want to delete this workout?',
       header: 'Confirmation',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        this.workouts.splice(index, 1);
-        this.filterWorkoutData();
-        this.saveWorkoutsToLocalStorage();
+        this.workouts.splice(index, 1); // Remove workout from the array
+        this.filterWorkoutData(); // Apply filter again
+        this.saveWorkoutsToLocalStorage(); // Update local storage
 
-        // Show toast message for successful deletion
+        // Show deletion success message
         this.messageService.add({
           severity: 'error',
           summary: 'Workout Deleted',
@@ -185,7 +192,7 @@ export class HomeComponent implements OnInit {
         });
       },
       reject: () => {
-        // Optional: Show a toast message for cancellation
+        // Optionally show a cancellation message
         this.messageService.add({
           severity: 'info',
           summary: 'Cancelled',
@@ -195,11 +202,13 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  // Updates the selected workout for the chart view
   updateSelectedWorkoutForChart(userName: string) {
     this.selectedWorkoutForChart =
       this.workouts.find((workout) => workout.userName === userName) || null;
   }
 
+  // Lifecycle hook to load workouts when component is initialized
   ngOnInit(): void {
     this.loadWorkoutsFromLocalStorage();
   }

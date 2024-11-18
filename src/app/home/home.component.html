@@ -1,27 +1,31 @@
 <div class="ht-m-24-px">
+  <!-- Main Heading for Workout Monitor App -->
   <h1
     class="ht-flex ht-align-center ht-justify-center ht-text-4xl ht-font-bold ht-text-white ht-bg-gradient-to-r ht-from-sky-950 ht-via-purple-700 ht-to-red-500 ht-py-4 ht-px-8 ht-rounded-lg ht-shadow-xl"
   >
     Workout Monitor App
   </h1>
 
+  <!-- Subheading for Workout Dashboard -->
   <h2
     class="ht-mt-64-px ht-flex ht-justify-center ht-text-2xl ht-font-semibold ht-text-sky-100 ht-text-center ht-mb-1 ht-pb-2 ht-border-b-2 ht-border-sky-800 ht-shadow-lg ht-rounded-md ht-bg-sky-950 ht-w-full ht-max-w-2xl ht-mx-auto ht-ml-6-px"
   >
     Workout Dashboard
   </h2>
 
+  <!-- Component for adding a workout -->
   <app-add-workout (workoutAdded)="addWorkoutToTable($event)"></app-add-workout>
-  <!-- For showing toast messages on adding/deleting workout -->
+  <!-- Toast message component for adding/deleting workout -->
   <p-toast></p-toast>
 
-  <!-- Search and filter options -->
+  <!-- Section for Search and Filter functionality -->
   <h2 class="ht-text-xl ht-mb-8-px ht-font-bold ht-text-gray-800">
     Search and Filter
   </h2>
 
   <div class="search-filter-container">
     <div class="ht-flex ht-justify-start">
+      <!-- Search bar to filter workouts by Username -->
       <input
         type="text"
         placeholder="Search by Username"
@@ -31,6 +35,7 @@
       />
     </div>
 
+    <!-- Dropdown to filter workouts by Workout Type -->
     <div class="p-field">
       <p-dropdown
         id="workoutTypeFilter"
@@ -43,6 +48,7 @@
     </div>
   </div>
 
+  <!-- Table for displaying workouts -->
   <div class="ht-w-full ht-mt-4 ht-shadow-lg ht-rounded-lg ht-m-8-px">
     <p-table
       [value]="filteredWorkouts"
@@ -52,6 +58,7 @@
       [totalRecords]="filteredWorkouts.length"
       (onLazyLoad)="onLazyLoad($event)"
     >
+      <!-- Table Header -->
       <ng-template pTemplate="header">
         <tr class="ht-bg-sky-950">
           <th class="ht-px-4 ht-py-2 ht-text-left ht-text-white">Username</th>
@@ -68,6 +75,7 @@
         </tr>
       </ng-template>
 
+      <!-- Table Body -->
       <ng-template pTemplate="body" let-user let-rowIndex="rowIndex">
         <tr
           class="workout-item ht-border-b ht-border-gray-200 hover:ht-bg-gray-500"
@@ -84,6 +92,7 @@
           <td class="ht-px-4 ht-py-2">{{ user.workoutsCount }}</td>
           <td class="ht-px-4 ht-py-2">{{ user.workoutDuration }}</td>
           <td class="ht-px-4 ht-py-2">
+            <!-- Delete button for each workout entry -->
             <button
               class="ht-text-red-600 ht-px-3 ht-py-1 ht-rounded-md ht-hover:bg-red-800"
               (click)="deleteWorkout(rowIndex)"
@@ -94,6 +103,8 @@
         </tr>
       </ng-template>
     </p-table>
+
+    <!-- Confirmation Dialog for deleting a workout -->
     <p-confirmDialog
       header="Delete Workout Confirmation"
       icon="pi pi-exclamation-triangle"
@@ -101,6 +112,7 @@
       [rejectLabel]="'No'"
     ></p-confirmDialog>
 
+    <!-- Message when no workouts are available -->
     <div
       *ngIf="filteredWorkouts.length === 0"
       class="ht-text-center ht-text-gray-500 ht-py-5"
@@ -109,9 +121,9 @@
     </div>
   </div>
 
-  <!-- Chart section -->
+  <!-- Chart section for workout analysis -->
   <div class="ht-flex ht-flex-col ht-items-center ht-mt-16">
-    <!-- Heading -->
+    <!-- Heading for Workout Analysis -->
     <h2
       class="ht-text-2xl ht-font-semibold ht-text-sky-100 ht-text-center ht-mb-4 ht-pb-2 ht-border-b-2 ht-border-sky-800 ht-shadow-lg ht-rounded-md ht-bg-sky-950 ht-w-full ht-max-w-2xl"
     >
@@ -120,13 +132,24 @@
 
     <!-- User Selector and Chart Section -->
     <div class="ht-flex ht-flex-row ht-mt-8">
-      <app-user-selector
-        (updateSelectedUser)="updateSelectedWorkoutForChart($event)"
-        [userList]="userList"
-      ></app-user-selector>
-      <app-workout-chart
-        [selectedWorkoutForChart]="selectedWorkoutForChart"
-      ></app-workout-chart>
+      <!-- Check if there are users in the userList -->
+      <ng-container *ngIf="userList.length > 0; else noUsersMessage">
+        <!-- Display the user selector and workout chart if users are available -->
+        <app-user-selector
+          (updateSelectedUser)="updateSelectedWorkoutForChart($event)"
+          [userList]="userList"
+        ></app-user-selector>
+        <app-workout-chart
+          [selectedWorkoutForChart]="selectedWorkoutForChart"
+        ></app-workout-chart>
+      </ng-container>
+
+      <!-- Display this message if there are no users in the userList -->
+      <ng-template #noUsersMessage>
+        <div class="no-users-message ht-text-center ht-text-gray-500 ht-py-5">
+          <p>Add a workout to view workout analysis.</p>
+        </div>
+      </ng-template>
     </div>
   </div>
 </div>
