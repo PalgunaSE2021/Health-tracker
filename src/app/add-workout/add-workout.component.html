@@ -1,8 +1,8 @@
 <button
   pButton
-  label="Start Today"
-  icon="pi pi-arrow-right"
-  class="ht-px-16-px ht-bg-sky-950 ht-h-12 ht-rounded-2xl ht-mt-24-px ht-mb-12-px ht-ml-8-px"
+  label="Add Workout"
+  icon="pi pi-plus"
+  class="ht-px-16-px ht-bg-sky-950 ht-h-12 ht-rounded-2xl ht-mt-24-px ht-mb-12-px"
   (click)="showDialog()"
 ></button>
 
@@ -20,7 +20,7 @@
         type="text"
         pInputText
         [(ngModel)]="userName"
-        class="ht-w-full ht-mt-4-px ht-py-4-px ht-mb-12-px"
+        class="ht-w-full ht-mt-4-px ht-py-4-px"
       />
       <small *ngIf="nameError" class="p-error">User name is required.</small>
     </div>
@@ -32,7 +32,7 @@
         type="number"
         pInputText
         [(ngModel)]="workoutDuration"
-        class="w-full ht-mt-4-px ht-py-4-px ht-mb-12-px"
+        class="w-full ht-mt-4-px ht-py-4-px"
       />
       <small *ngIf="durationError" class="p-error">Duration is required.</small>
     </div>
@@ -55,15 +55,15 @@
   <div class="p-dialog-footer ht-mt-64-px">
     <button
       pButton
-      label="Add"
-      (click)="addWorkout()"
-      class="p-button-primary ht-mr-16-px"
+      label="Cancel"
+      (click)="hideDialog()"
+      class="p-button-secondary ht-py-8-px ht-px-16-px ht-rounded-xl ht-mr-16-px"
     ></button>
     <button
       pButton
-      label="Cancel"
-      (click)="hideDialog()"
-      class="p-button-secondary"
+      label="Add"
+      (click)="addWorkout()"
+      class="p-button-primary ht-bg-sky-950 ht-py-8-px ht-px-16-px ht-rounded-xl"
     ></button>
   </div>
 </p-dialog>

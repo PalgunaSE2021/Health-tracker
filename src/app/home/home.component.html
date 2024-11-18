@@ -1,81 +1,113 @@
-<app-add-workout (workoutAdded)="addWorkoutToTable($event)"></app-add-workout>
-
-<!-- Search Bar for filtering by username -->
-<div class="ht-mt-16-px ht-flex ht-justify-start">
-  <input
-    type="text"
-    placeholder="Search by Username"
-    class="ht-search-bar ht-ml-8-px ht-p-3 ht-w-full ht-max-w-md ht-border-2 ht-border-sky-950 ht-rounded-2xl ht-focus:outline-none ht-focus:ring-2 ht-focus:ring-blue-300"
-    [(ngModel)]="searchText"
-    (input)="filterWorkouts()"
-  />
-</div>
-
-<!-- Workout Type Filter Dropdown -->
-<div class="p-field">
-  <p-dropdown
-    id="workoutTypeFilter"
-    [options]="workoutTypes"
-    [(ngModel)]="selectedWorkoutType"
-    (onChange)="filterData()"
-    placeholder="Select Workout Type"
-    [styleClass]="'filter-dropdown'"
-  ></p-dropdown>
-</div>
-
-<div class="ht-w-full ht-mt-4 ht-shadow-lg ht-rounded-lg ht-m-8-px">
-  <p-table
-    [value]="filteredWorkouts"
-    [paginator]="filteredWorkouts.length >= 5"
-    [rows]="itemsPerPage"
-    [rowsPerPageOptions]="[5, 10, 15, 20]"
-    [totalRecords]="filteredWorkouts.length"
-    (onLazyLoad)="onLazyLoad($event)"
+<div class="ht-m-24-px">
+  <h1
+    class="ht-flex ht-align-center ht-justify-center ht-text-4xl ht-font-bold ht-text-white ht-bg-gradient-to-r ht-from-sky-950 ht-via-purple-700 ht-to-red-500 ht-py-4 ht-px-8 ht-rounded-lg ht-shadow-xl"
   >
-    <ng-template pTemplate="header">
-      <tr class="ht-bg-sky-950">
-        <th class="ht-px-4 ht-py-2 ht-text-left ht-text-white">Username</th>
-        <th class="ht-px-4 ht-py-2 ht-text-left ht-text-white">
-          Workout Types
-        </th>
-        <th class="ht-px-4 ht-py-2 ht-text-left ht-text-white">
-          Number of Workouts
-        </th>
-        <th class="ht-px-4 ht-py-2 ht-text-left ht-text-white">
-          Total Workout Minutes
-        </th>
-        <th></th>
-      </tr>
-    </ng-template>
+    Workout Monitor App
+  </h1>
 
-    <ng-template pTemplate="body" let-user let-rowIndex="rowIndex">
-      <tr class="ht-border-b ht-border-gray-200 hover:ht-bg-gray-500">
-        <td class="ht-px-4 ht-py-2">{{ user.userName }}</td>
-        <td class="ht-px-4 ht-py-2">
-          <div
-            *ngFor="let type of user.workoutTypes"
-            class="ht-inline-block ht-bg-sky-950 ht-text-white ht-rounded-md ht-px-2 ht-py-1 ht-mb-1 ht-mr-1"
-          >
-            {{ type }}
-          </div>
-        </td>
-        <td class="ht-px-4 ht-py-2">{{ user.totalWorkouts }}</td>
-        <td class="ht-px-4 ht-py-2">{{ user.totalMinutes }}</td>
-        <td class="ht-px-4 ht-py-2">
-          <button
-            class="ht-text-red-600 ht-px-3 ht-py-1 ht-rounded-md ht-hover:bg-red-800"
-            (click)="deleteWorkout(rowIndex)"
-          >
-            Delete
-          </button>
-        </td>
-      </tr>
-    </ng-template>
-  </p-table>
+  <app-add-workout (workoutAdded)="addWorkoutToTable($event)"></app-add-workout>
+  <!-- For showing toast messages on adding/deleting workout -->
+  <p-toast></p-toast>
 
-  <div
-    *ngIf="filteredWorkouts.length === 0"
-    class="ht-text-center ht-text-gray-500 ht-py-5"
-  >
-    No workouts added.
+  <!-- Search and filter options -->
+  <h2 class="ht-text-xl ht-mb-8-px ht-font-bold ht-text-gray-800">
+    Search and Filter
+  </h2>
+
+  <div class="search-filter-container">
+    <div class="ht-flex ht-justify-start">
+      <input
+        type="text"
+        placeholder="Search by Username"
+        class="ht-search-bar ht-p-3 ht-w-full ht-max-w-md ht-border-2 ht-border-sky-950 ht-rounded-2xl ht-focus:outline-none ht-focus:ring-2 ht-focus:ring-blue-300"
+        [(ngModel)]="searchText"
+        (input)="filterWorkoutData()"
+      />
+    </div>
+
+    <div class="p-field">
+      <p-dropdown
+        id="workoutTypeFilter"
+        [options]="workoutTypes"
+        [(ngModel)]="selectedWorkoutType"
+        (onChange)="filterWorkoutData()"
+        placeholder="Select Workout Type"
+        [styleClass]="'filter-dropdown'"
+      ></p-dropdown>
+    </div>
+  </div>
+
+  <div class="ht-w-full ht-mt-4 ht-shadow-lg ht-rounded-lg ht-m-8-px">
+    <p-table
+      [value]="filteredWorkouts"
+      [paginator]="filteredWorkouts.length >= 5"
+      [rows]="itemsPerPage"
+      [rowsPerPageOptions]="[5, 10, 15, 20]"
+      [totalRecords]="filteredWorkouts.length"
+      (onLazyLoad)="onLazyLoad($event)"
+    >
+      <ng-template pTemplate="header">
+        <tr class="ht-bg-sky-950">
+          <th class="ht-px-4 ht-py-2 ht-text-left ht-text-white">Username</th>
+          <th class="ht-px-4 ht-py-2 ht-text-left ht-text-white">
+            Workout Types
+          </th>
+          <th class="ht-px-4 ht-py-2 ht-text-left ht-text-white">
+            Number of Workouts
+          </th>
+          <th class="ht-px-4 ht-py-2 ht-text-left ht-text-white">
+            Total Workout Minutes
+          </th>
+          <th></th>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-user let-rowIndex="rowIndex">
+        <tr
+          class="workout-item ht-border-b ht-border-gray-200 hover:ht-bg-gray-500"
+        >
+          <td class="ht-px-4 ht-py-2">{{ user.userName }}</td>
+          <td class="ht-px-4 ht-py-2">
+            <div
+              *ngFor="let type of user.workoutTypes"
+              class="ht-inline-block ht-bg-sky-950 ht-text-white ht-rounded-md ht-px-2 ht-py-1 ht-mb-1 ht-mr-1"
+            >
+              {{ type }}
+            </div>
+          </td>
+          <td class="ht-px-4 ht-py-2">{{ user.workoutsCount }}</td>
+          <td class="ht-px-4 ht-py-2">{{ user.workoutDuration }}</td>
+          <td class="ht-px-4 ht-py-2">
+            <button
+              class="ht-text-red-600 ht-px-3 ht-py-1 ht-rounded-md ht-hover:bg-red-800"
+              (click)="deleteWorkout(rowIndex)"
+            >
+              Delete
+            </button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+    <p-confirmDialog
+      header="Delete Workout Confirmation"
+      icon="pi pi-exclamation-triangle"
+      [acceptLabel]="'Yes'"
+      [rejectLabel]="'No'"
+    ></p-confirmDialog>
+
+    <div
+      *ngIf="filteredWorkouts.length === 0"
+      class="ht-text-center ht-text-gray-500 ht-py-5"
+    >
+      No workouts added.
+    </div>
+  </div>
+
+  <!-- Chart section -->
+   <div class="ht-flex ht-flex-row">
+    <app-user-selector (updateSelectedUser)="updateSelectedWorkoutForChart($event)" [userList]="userList"></app-user-selector>
+   </div>
+  <app-workout-chart
+    [selectedWorkoutForChart]="selectedWorkoutForChart"
+  ></app-workout-chart>
 </div>

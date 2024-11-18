@@ -1,34 +1,25 @@
-.ht-input {
-  width: 100%;
-  padding: 8px;
-  margin-bottom: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+.search-filter-container {
+  @apply ht-flex
+    ht-flex-row
+    ht-items-center
+    ht-justify-start;
 }
 
-.ht-btn {
-  padding: 8px 16px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+.popup-animation {
+  animation: popup 0.9s ease-in-out;
 }
 
-.ht-btn-primary {
-  background-color: #007bff;
-  color: white;
-}
-
-.ht-flex {
-  display: flex;
-}
-
-.user-list {
-  width: 25%;
-  padding: 0;
-  margin: 0;
-  list-style: none;
-}
-
-.chart-container {
-  width: 75%;
+@keyframes popup {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
 }

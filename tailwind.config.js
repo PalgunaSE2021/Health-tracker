@@ -1,4 +1,5 @@
 module.exports = {
+  // Prefix ht means health tracker
   prefix: "ht-",
   content: ["./src/**/*.{html,ts,scss}"],
   theme: {
