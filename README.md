@@ -16,8 +16,8 @@ Manage workout data:
 5. Delete workout: Allows users to delete workouts from the list view which are not needed anymore.
 
 Installation steps:
-Clone the repository: `git clone https://github.com/your-username/workout-tracker-app.git`
-Change current working directory to workout-tracker-app: `cd workout-tracker-app`
+- Clone the repository: `git clone https://github.com/your-username/workout-tracker-app.git`
+- Change current working directory to workout-tracker-app: `cd workout-tracker-app`
 
 Install dependencies:
 npm install
