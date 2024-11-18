@@ -1,32 +1,27 @@
-This is a Workout Tracker Application built with Angular and PrimeNG. The app allows users to log and track their workouts, filter workout data by user and workout type, and display the data in a dynamic table. It also features local storage to retain workout data between sessions, ensuring a seamless experience for users.
+This is a Workout Tracker Application built with Angular and PrimeNG. The app allows users to log and track their workouts, filter workout data by user and workout type, and display the data in a dynamic table. It also features localStorage to retain workout data between sessions, ensuring a seamless experience for users.
 
 🎯 Features
 
-Add Workout: A dialog to add new workouts, including user name, workout type, and duration.
+Manage workout data:
+1. Adding a new workout log: This app provides a dialog to add new workout, where user can enter user name, workout type, and duration and save.
 
-Local Storage: Automatically saves workouts to local storage to persist data across sessions.
+2. Display workout data: This app has a table with pagination which shows the workout data that are already added by the user. This is implemented using PrimeNG p-table component. As per assignment requirement, the pagination feature is activated when the number of items exceeds the set threshold (>= 5 items). 
 
-Dynamic Table: Displays a table of workouts using PrimeNG's p-table component.
+3. Search and Filter:
+ - Search by Username: Real-time search based on the string entered by the user.
+ - Filter by Workout Type: Dropdown for selecting workout types for filtering workouts by different types (For ex: Cardio, Strength, Flexibility).
 
-Search and Filter:
-Search by Username: Real-time search based on the entered username.
+4. Local Storage: Workout logs added by user is saved in local storage to persist data across sessions.
 
-Filter by Workout Type: Dropdown selection for filtering workouts by type (Cardio, Strength, Flexibility).
+5. Delete workout: Allows users to delete workouts from the list view which are not needed anymore.
 
-Error Handling: Inline error messages for form validation.
-
-Delete Functionality: Allows users to delete workouts from the list.
-
-Pagination: The project uses PrimeNG's p-table component with pagination to efficiently display large workout data sets. The pagination feature is activated when the number of items exceeds the set threshold (>= 5 items). 
-
-Installation
-Clone the repository:
-git clone https://github.com/your-username/workout-tracker-app.git
-cd workout-tracker-app
+Installation steps:
+Clone the repository: `git clone https://github.com/your-username/workout-tracker-app.git`
+Change current working directory to workout-tracker-app: `cd workout-tracker-app`
 
 Install dependencies:
 npm install
 
 Start the development server:
 ng serve
-The app will be available at http://localhost:4200.
+The app should start running at http://localhost:4200.
