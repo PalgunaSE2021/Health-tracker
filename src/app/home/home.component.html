@@ -5,6 +5,12 @@
     Workout Monitor App
   </h1>
 
+  <h2
+    class="ht-mt-64-px ht-flex ht-justify-center ht-text-2xl ht-font-semibold ht-text-sky-100 ht-text-center ht-mb-1 ht-pb-2 ht-border-b-2 ht-border-sky-800 ht-shadow-lg ht-rounded-md ht-bg-sky-950 ht-w-full ht-max-w-2xl ht-mx-auto ht-ml-6-px"
+  >
+    Workout Dashboard
+  </h2>
+
   <app-add-workout (workoutAdded)="addWorkoutToTable($event)"></app-add-workout>
   <!-- For showing toast messages on adding/deleting workout -->
   <p-toast></p-toast>
@@ -104,10 +110,23 @@
   </div>
 
   <!-- Chart section -->
-   <div class="ht-flex ht-flex-row">
-    <app-user-selector (updateSelectedUser)="updateSelectedWorkoutForChart($event)" [userList]="userList"></app-user-selector>
-   </div>
-  <app-workout-chart
-    [selectedWorkoutForChart]="selectedWorkoutForChart"
-  ></app-workout-chart>
+  <div class="ht-flex ht-flex-col ht-items-center ht-mt-16">
+    <!-- Heading -->
+    <h2
+      class="ht-text-2xl ht-font-semibold ht-text-sky-100 ht-text-center ht-mb-4 ht-pb-2 ht-border-b-2 ht-border-sky-800 ht-shadow-lg ht-rounded-md ht-bg-sky-950 ht-w-full ht-max-w-2xl"
+    >
+      User's Workout Analysis
+    </h2>
+
+    <!-- User Selector and Chart Section -->
+    <div class="ht-flex ht-flex-row ht-mt-8">
+      <app-user-selector
+        (updateSelectedUser)="updateSelectedWorkoutForChart($event)"
+        [userList]="userList"
+      ></app-user-selector>
+      <app-workout-chart
+        [selectedWorkoutForChart]="selectedWorkoutForChart"
+      ></app-workout-chart>
+    </div>
+  </div>
 </div>

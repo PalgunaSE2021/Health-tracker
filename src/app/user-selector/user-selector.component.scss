@@ -1,0 +1,39 @@
+.user-list-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.user-card {
+  background-color: #0c4a6e; /* Sky-950 theme */
+  color: #fff;
+  padding: 12px 16px;
+  border: 1px solid #1e3a5f; /* Border color matching the theme */
+  border-radius: 8px;
+  min-width: 120px;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.user-card:hover {
+  background-color: #0a3a57; /* Slightly darker shade for hover effect */
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.user-card:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+.user-list-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 16px;
+  padding: 16px;
+  border: 2px solid #445264;
+  border-radius: 12px;
+  background-color: #152e3d;
+}

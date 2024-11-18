@@ -2,7 +2,7 @@
   pButton
   label="Add Workout"
   icon="pi pi-plus"
-  class="ht-px-16-px ht-bg-sky-950 ht-h-12 ht-rounded-2xl ht-mt-24-px ht-mb-12-px"
+  class="ht-px-16-px ht-bg-sky-950 ht-h-12 ht-rounded-2xl ht-mt-24-px ht-mb-12-px ht-text-white ht-shadow-lg ht-hover:shadow-2xl ht-transition-all ht-duration-300"
   (click)="showDialog()"
 ></button>
 
@@ -13,7 +13,7 @@
   [styleClass]="'dialog-container'"
 >
   <div class="p-fluid">
-    <div class="p-field">
+    <div class="p-field ht-mb-16-px">
       <label for="userName">User Name</label>
       <input
         id="userName"
@@ -25,7 +25,7 @@
       <small *ngIf="nameError" class="p-error">User name is required.</small>
     </div>
 
-    <div class="p-field">
+    <div class="p-field ht-mb-16-px">
       <label for="workoutDuration">Workout Duration (minutes)</label>
       <input
         id="workoutDuration"
@@ -37,7 +37,7 @@
       <small *ngIf="durationError" class="p-error">Duration is required.</small>
     </div>
 
-    <div class="p-field">
+    <div class="p-field ht-mb-16-px">
       <label for="workoutType">Workout Type</label>
       <p-dropdown
         id="workoutType"
