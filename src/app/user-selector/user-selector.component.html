@@ -1,5 +1,9 @@
-<div>
-  <span *ngFor="let user of userList" (click)="updateUser(user)">
+<div class="user-list-container">
+  <div
+    *ngFor="let user of userList"
+    (click)="updateUser(user)"
+    class="user-card"
+  >
     {{ user }}
-  </span>
+  </div>
 </div>
