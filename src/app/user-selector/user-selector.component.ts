@@ -19,11 +19,14 @@ export class UserSelectorComponent implements OnChanges {
   @Output() updateSelectedUser = new EventEmitter<string>(); // EventEmitter to send the selected user to the parent component
 
   @Input() userList: string[] = [];
-  @Input() selectedUser: string = '';
+
+  selectedUser: string = '';
 
   // Method to handle user selection and emit the selected user
   updateUser(user: string) {
-    this.updateSelectedUser.emit(user); // Emits the selected user to the parent component
+    console.log('User selected:', user);
+    this.selectedUser = user;
+    this.updateSelectedUser.emit(user); // This emits the selected user
   }
 
   ngOnChanges(changes: SimpleChanges): void {

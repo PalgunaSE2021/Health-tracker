@@ -37,7 +37,6 @@ import { UserSelectorComponent } from '../user-selector/user-selector.component'
 })
 export class HomeComponent implements OnInit {
   workouts: Workout[] = [];
-  selectedUser: string = '';
   filteredWorkouts: Workout[] = [];
   searchText: string = '';
   selectedWorkoutType: 'Cardio' | 'Strength' | 'Flexibility' | 'All types' =
@@ -192,7 +191,7 @@ export class HomeComponent implements OnInit {
 
         // Show deletion success message
         this.messageService.add({
-          severity: 'error',
+          severity: 'success',
           summary: 'Workout Deleted',
           detail: 'The workout was successfully deleted.',
         });
@@ -212,11 +211,6 @@ export class HomeComponent implements OnInit {
   updateSelectedWorkoutForChart(userName: string) {
     this.selectedWorkoutForChart =
       this.workouts.find((workout) => workout.userName === userName) || null;
-  }
-
-  // Method to update the selected user
-  updateSelectedUser(user: string) {
-    this.selectedUser = user;
   }
 
   // Lifecycle hook to load workouts when component is initialized
