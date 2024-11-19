@@ -9,17 +9,23 @@ Manage workout data:
 <img width="374" alt="image" src="https://github.com/user-attachments/assets/21c8fcc5-ebe7-4382-8275-99972385a0fa">
 
 
-3. Display workout data: This app has a table with pagination which shows the workout data that are already added by the user. This is implemented using PrimeNG p-table component. As per assignment requirement, the pagination feature is activated when the number of items exceeds the set threshold (>= 5 items). 
+2. Display workout data: This app has a table with pagination which shows the workout data that are already added by the user. This is implemented using PrimeNG p-table component. As per assignment requirement, the pagination feature is activated when the number of items exceeds the set threshold (>= 5 items). 
 <img width="932" alt="image" src="https://github.com/user-attachments/assets/755fa983-1715-4d1e-a6f9-66f1b81d8c75">
 
 
-4. Search and Filter:
+3. Search and Filter:
  - Search by Username: Real-time search based on the string entered by the user.
  - Filter by Workout Type: Dropdown for selecting workout types for filtering workouts by different types (For ex: Cardio, Strength, Flexibility).
+<img width="934" alt="image" src="https://github.com/user-attachments/assets/1a424cc9-90de-469f-9b67-e7c8a2ab3d4d">
+
 
 4. Local Storage: Workout logs added by user is saved in local storage to persist data across sessions.
 
 5. Delete workout: Allows users to delete workouts from the list view which are not needed anymore.
+
+6.Chart: Implemented using PrimeNG's p-chart, provides a visual representation of workout data, enabling users to analyze their selected workout types. 
+<img width="886" alt="image" src="https://github.com/user-attachments/assets/65a6bd66-f30d-44d9-8524-270f74634d8e">
+
 
 Installation steps:
 - Clone the repository: `git clone https://github.com/your-username/workout-tracker-app.git`
