@@ -1,4 +1,6 @@
 This is a Workout Tracker Application built with Angular and PrimeNG. The app allows users to log and track their workouts, filter workout data by user and workout type, and display the data in a dynamic table. It also features localStorage to retain workout data between sessions, ensuring a seamless experience for users.
+<img width="941" alt="image" src="https://github.com/user-attachments/assets/f8328079-4d09-4b50-9c74-1b7356ebdf1f">
+
 
 🎯 Features
 
