@@ -31,6 +31,35 @@ describe('UserSelectorComponent', () => {
     expect(userCards[2].nativeElement.textContent.trim()).toBe('Charlie');
   });
 
+  it('should update selectedUser when updatedUserName input changes', () => {
+    component.userList = ['Alice', 'Bob', 'Charlie'];
+    fixture.detectChanges();
+
+    // Initially, no user is selected
+    expect(component.selectedUser).toBe('');
+
+    // Simulate input change for updatedUserName
+    component.updatedUserName = 'Bob';
+    component.ngOnChanges({
+      updatedUserName: {
+        currentValue: 'Bob',
+        previousValue: '',
+        firstChange: true,
+        isFirstChange: () => true,
+      },
+    });
+    fixture.detectChanges();
+
+    // Assert that the selectedUser is updated to 'Bob'
+    expect(component.selectedUser).toBe('Bob');
+
+    // Ensure the correct user is highlighted
+    const userCards = fixture.debugElement.queryAll(By.css('.user-card'));
+    expect(userCards[1].classes['active']).toBeTrue();
+    expect(userCards[0].classes['active']).toBeFalsy();
+    expect(userCards[2].classes['active']).toBeFalsy();
+  });
+
   it('should apply the "active" class to the selected user', () => {
     component.userList = ['Alice', 'Bob', 'Charlie'];
     fixture.detectChanges();

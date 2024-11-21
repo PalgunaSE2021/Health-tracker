@@ -44,6 +44,7 @@ export class HomeComponent implements OnInit {
   itemsPerPage: number = 5;
   page: number = 1;
   userList: string[] = [];
+  selectedUser: string = '';
 
   selectedWorkoutForChart: Workout | null = null;
 
@@ -69,6 +70,7 @@ export class HomeComponent implements OnInit {
       this.workouts = storedWorkouts;
       this.filteredWorkouts = [...this.workouts];
       this.userList = this.workouts?.map((workout) => workout.userName);
+      this.selectedUser = this.userList[0];
       this.selectedWorkoutForChart = this.workouts[0];
     }
   }
@@ -85,7 +87,7 @@ export class HomeComponent implements OnInit {
       workoutDuration: workout.workoutDuration,
     };
 
-    // Check if the user already has other workout entries
+    // Find the existing workout entry
     const existingWorkoutEntry = this.workouts.find(
       (existingWorkout) =>
         existingWorkout.userName.toLowerCase() ===
@@ -93,19 +95,22 @@ export class HomeComponent implements OnInit {
     );
 
     if (existingWorkoutEntry) {
-      // Add new workout entry to the existing user's data
+      // Add the new workout entry to the existing user's data
       existingWorkoutEntry.workoutsData.push(newWorkoutEntry);
       existingWorkoutEntry.workoutsCount++;
       existingWorkoutEntry.workoutDuration += newWorkoutEntry.workoutDuration;
 
-      // Add new workout type only if not already present
+      // Add the new workout type to the existing list if it doesn't exist
       if (
         !existingWorkoutEntry.workoutTypes.includes(newWorkoutEntry.workoutType)
       ) {
         existingWorkoutEntry.workoutTypes.push(newWorkoutEntry.workoutType);
       }
+
+      // After modifying the workout, update the selectedWorkoutForChart
+      this.selectedWorkoutForChart = existingWorkoutEntry; // Make sure this points to the updated user
     } else {
-      // Create a new workout entry for a new user
+      // If user doesn't exist, create a new entry (same logic as before)
       const newWorkout = {
         userName: workout.userName,
         workoutTypes: [workout.workoutType],
@@ -114,15 +119,16 @@ export class HomeComponent implements OnInit {
         workoutsData: [newWorkoutEntry],
       };
 
-      // Add the new workout at the beginning of the array
+      // Add new workout at the beginning of the array
       this.workouts.unshift(newWorkout);
-      if (!this.userList.includes(workout.userName)) {
-        // Add the user's name to the user list only if it's a new user
-        this.userList = [workout.userName, ...this.userList];
-      }
+
+      // Update selected workout for chart
+      this.selectedWorkoutForChart = newWorkout;
     }
 
-    // Apply the filter and update local storage
+    this.selectedUser = workout.userName;
+
+    // Apply any filters and save data to local storage
     this.filterWorkoutData();
     this.saveWorkoutsToLocalStorage();
 
@@ -133,13 +139,8 @@ export class HomeComponent implements OnInit {
       detail: `${workout.userName}'s workout was successfully added.`,
     });
 
-    // Trigger the popup animation
+    // Trigger popup animation
     this.triggerPopupAnimation();
-
-    if (this.userList.length === 1) {
-      // If this is the first user, set the selected workout for chart
-      this.updateSelectedWorkoutForChart(this.userList[0]);
-    }
   }
 
   // Triggers the animation for the popup of newly added workout
@@ -212,9 +213,16 @@ export class HomeComponent implements OnInit {
   }
 
   // Updates the selected workout for the chart view
-  updateSelectedWorkoutForChart(userName: string) {
-    this.selectedWorkoutForChart =
-      this.workouts.find((workout) => workout.userName === userName) || null;
+  updateSelectedWorkoutForChart(userName: string): void {
+    // Find the updated user from the workouts list
+    const updatedUser = this.workouts.find(
+      (workout) => workout.userName.toLowerCase() === userName.toLowerCase()
+    );
+
+    // If the user exists, update the selected workout for the chart
+    if (updatedUser) {
+      this.selectedWorkoutForChart = updatedUser;
+    }
   }
 
   // Lifecycle hook to load workouts when component is initialized
