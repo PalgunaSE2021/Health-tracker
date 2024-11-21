@@ -24,7 +24,6 @@ export class UserSelectorComponent implements OnChanges {
 
   // Method to handle user selection and emit the selected user
   updateUser(user: string) {
-    console.log('User selected:', user);
     this.selectedUser = user;
     this.updateSelectedUser.emit(user); // This emits the selected user
   }
