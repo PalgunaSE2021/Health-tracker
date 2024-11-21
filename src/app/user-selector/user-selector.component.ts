@@ -19,8 +19,7 @@ export class UserSelectorComponent implements OnChanges {
   @Output() updateSelectedUser = new EventEmitter<string>(); // EventEmitter to send the selected user to the parent component
 
   @Input() userList: string[] = [];
-  @Input() updatedUserName: string = ''; // This will receive the updated username from HomeComponent
-  selectedUser: string = '';
+  @Input() selectedUser: string = '';
 
   // Method to handle user selection and emit the selected user
   updateUser(user: string) {
@@ -29,12 +28,12 @@ export class UserSelectorComponent implements OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['userList'] && changes['userList'].currentValue) {
-      this.userList = [...changes['userList'].currentValue]; //This ensures the changed list is updated
+    if (changes['userList']?.currentValue) {
+      this.userList = changes['userList'].currentValue;
     }
-    if (changes['updatedUserName']) {
-      // If updatedUserName changes, highlight the new user
-      this.selectedUser = this.updatedUserName;
+
+    if (changes['selectedUser']?.currentValue) {
+      this.selectedUser = changes['selectedUser'].currentValue;
     }
   }
 }
