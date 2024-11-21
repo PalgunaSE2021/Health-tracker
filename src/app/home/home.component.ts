@@ -108,9 +108,9 @@ export class HomeComponent implements OnInit {
       }
 
       // After modifying the workout, update the selectedWorkoutForChart
-      this.selectedWorkoutForChart = existingWorkoutEntry; // Make sure this points to the updated user
+      this.selectedWorkoutForChart = existingWorkoutEntry;
+      this.selectedUser = existingWorkoutEntry.userName;
     } else {
-      // If user doesn't exist, create a new entry (same logic as before)
       const newWorkout = {
         userName: workout.userName,
         workoutTypes: [workout.workoutType],
@@ -124,9 +124,10 @@ export class HomeComponent implements OnInit {
 
       // Update selected workout for chart
       this.selectedWorkoutForChart = newWorkout;
-    }
 
-    this.selectedUser = workout.userName;
+      this.userList.unshift(newWorkout.userName);
+      this.selectedUser = newWorkout.userName;
+    }
 
     // Apply any filters and save data to local storage
     this.filterWorkoutData();
@@ -189,10 +190,21 @@ export class HomeComponent implements OnInit {
       header: 'Confirmation',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
+        // Check if the selected user in charts is deleted
+        const isSelectedUserDeleted =
+          this.selectedUser === this.workouts[index].userName;
+        // Remove the deleted item from the workout list
         this.workouts.splice(index, 1);
+        // Update userlist also by removing deleted user name
         this.userList = this.userList.filter((_, i) => i !== index); // Remove workout
         this.filterWorkoutData(); // Apply filter again
         this.saveWorkoutsToLocalStorage(); // Update local storage
+
+        // If the user for whom charts was shown is deleted, point 1st user in the list for showing chart
+        if (isSelectedUserDeleted) {
+          this.selectedUser = this.userList[0];
+          this.selectedWorkoutForChart = this.workouts[0];
+        }
 
         // Show deletion success message
         this.messageService.add({
@@ -214,6 +226,7 @@ export class HomeComponent implements OnInit {
 
   // Updates the selected workout for the chart view
   updateSelectedWorkoutForChart(userName: string): void {
+    this.selectedUser = userName;
     // Find the updated user from the workouts list
     const updatedUser = this.workouts.find(
       (workout) => workout.userName.toLowerCase() === userName.toLowerCase()

@@ -39,7 +39,7 @@ describe('UserSelectorComponent', () => {
     expect(component.selectedUser).toBe('');
 
     // Simulate input change for updatedUserName
-    component.updatedUserName = 'Bob';
+    component.selectedUser = 'Bob';
     component.ngOnChanges({
       updatedUserName: {
         currentValue: 'Bob',
