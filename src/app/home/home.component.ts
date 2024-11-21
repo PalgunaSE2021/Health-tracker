@@ -95,8 +95,19 @@ export class HomeComponent implements OnInit {
     );
 
     if (existingWorkoutEntry) {
-      // Add the new workout entry to the existing user's data
-      existingWorkoutEntry.workoutsData.push(newWorkoutEntry);
+      // If user adds 40 mins more to cardio and there is already an entry for cardio
+      const existingData = existingWorkoutEntry.workoutsData.find(
+        (workoutData) => workoutData.workoutType === newWorkoutEntry.workoutType
+      );
+
+      // Check if the workout type already exists and update its duration
+      if (existingData) {
+        existingData.workoutDuration += newWorkoutEntry.workoutDuration;
+      } else {
+        // Add the new workout entry if it doesn't exist
+        existingWorkoutEntry.workoutsData.push(newWorkoutEntry);
+      }
+      // Update totals
       existingWorkoutEntry.workoutsCount++;
       existingWorkoutEntry.workoutDuration += newWorkoutEntry.workoutDuration;
 
@@ -108,7 +119,7 @@ export class HomeComponent implements OnInit {
       }
 
       // After modifying the workout, update the selectedWorkoutForChart
-      this.selectedWorkoutForChart = existingWorkoutEntry;
+      this.selectedWorkoutForChart = { ...existingWorkoutEntry };
       this.selectedUser = existingWorkoutEntry.userName;
     } else {
       const newWorkout = {
