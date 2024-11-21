@@ -2,8 +2,8 @@ import {
   Component,
   Input,
   OnChanges,
-  OnInit,
   SimpleChanges,
+  ChangeDetectorRef,
 } from '@angular/core';
 import { ChartModule } from 'primeng/chart';
 import { Workout } from '../models/workout.model';
@@ -15,12 +15,12 @@ import { Workout } from '../models/workout.model';
   templateUrl: './workout-chart.component.html',
   styleUrls: ['./workout-chart.component.scss'],
 })
-export class WorkoutChartComponent implements OnInit, OnChanges {
+export class WorkoutChartComponent implements OnChanges {
   @Input() selectedWorkoutForChart: Workout | null = null;
   workoutData: any;
   basicOptions: any;
 
-  constructor() {}
+  constructor(private cdRef: ChangeDetectorRef) {}
 
   // Method to prepare chart data and chart options
   private prepareChart() {
@@ -29,15 +29,18 @@ export class WorkoutChartComponent implements OnInit, OnChanges {
     const textColorSecondary = 'white';
     const surfaceBorder = '#082f49';
 
+    if (!this.selectedWorkoutForChart?.workoutsData) {
+      return; // Avoid errors if data is null or empty
+    }
+
     this.workoutData = {
-      // Mapping workout data to chart labels and data points
-      labels: this.selectedWorkoutForChart?.workoutsData.map(
+      labels: this.selectedWorkoutForChart.workoutsData.map(
         (workout) => workout.workoutType
       ),
       datasets: [
         {
-          label: 'Workout duration',
-          data: this.selectedWorkoutForChart?.workoutsData.map(
+          label: 'Workout Duration',
+          data: this.selectedWorkoutForChart.workoutsData.map(
             (workout) => workout.workoutDuration
           ),
           backgroundColor: [
@@ -45,7 +48,7 @@ export class WorkoutChartComponent implements OnInit, OnChanges {
             'rgba(75, 192, 192, 0.2)',
             'rgba(54, 162, 235, 0.2)',
             'rgba(153, 102, 255, 0.2)',
-          ], // Background colors for the chart bars
+          ],
           borderColor: [
             'rgb(255, 159, 64)',
             'rgb(75, 192, 192)',
@@ -63,7 +66,7 @@ export class WorkoutChartComponent implements OnInit, OnChanges {
           labels: {
             color: textColor,
             font: {
-              size: 16, // Increase legend font size
+              size: 16,
             },
           },
         },
@@ -91,16 +94,20 @@ export class WorkoutChartComponent implements OnInit, OnChanges {
           },
           grid: {
             color: surfaceBorder,
-            drawBorder: false, // Hides the border of the grid
+            drawBorder: false,
           },
         },
       },
     };
+
+    // Trigger change detection to ensure chart updates immediately
+    this.cdRef.detectChanges();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (!!changes['selectedWorkoutForChart'].currentValue) {
-      this.prepareChart(); // Prepares the chart data and options if the workout data changes
+    if (changes['selectedWorkoutForChart'] && this.selectedWorkoutForChart) {
+      // When selectedWorkoutForChart changes, update the chart data
+      this.prepareChart();
     }
   }
 

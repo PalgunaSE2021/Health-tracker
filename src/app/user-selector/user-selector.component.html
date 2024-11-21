@@ -4,7 +4,7 @@
     *ngFor="let user of userList"
     (click)="updateUser(user)"
     class="user-card"
-    [ngClass]="{'active': user === selectedUser}"
+    [ngClass]="{ active: user === selectedUser }"
   >
     {{ user }}
     <!-- Displays the user's name or info -->
