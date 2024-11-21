@@ -116,7 +116,10 @@ export class HomeComponent implements OnInit {
 
       // Add the new workout at the beginning of the array
       this.workouts.unshift(newWorkout);
-      this.userList.unshift(workout.userName);
+      if (!this.userList.includes(workout.userName)) {
+        // Add the user's name to the user list only if it's a new user
+        this.userList = [workout.userName, ...this.userList];
+      }
     }
 
     // Apply the filter and update local storage
@@ -185,7 +188,8 @@ export class HomeComponent implements OnInit {
       header: 'Confirmation',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        this.workouts.splice(index, 1); // Remove workout from the array
+        this.workouts.splice(index, 1);
+        this.userList = this.userList.filter((_, i) => i !== index); // Remove workout
         this.filterWorkoutData(); // Apply filter again
         this.saveWorkoutsToLocalStorage(); // Update local storage
 
