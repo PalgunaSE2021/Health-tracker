@@ -30,8 +30,8 @@ export class UserSelectorComponent implements OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['userList'].currentValue) {
-      this.userList = this.userList; // Updates the user list when it changes
+    if (changes['userList'] && changes['userList'].currentValue) {
+      this.userList = [...changes['userList'].currentValue]; //This ensures the changed list is updated
     }
   }
 }

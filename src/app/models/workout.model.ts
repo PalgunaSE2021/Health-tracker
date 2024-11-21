@@ -7,5 +7,3 @@ export interface Workout {
   workoutTypes: ('Strength' | 'Cardio' | 'Flexibility' | 'All types')[];
   workoutsData: WorkoutData[];
 }
-
-// Example

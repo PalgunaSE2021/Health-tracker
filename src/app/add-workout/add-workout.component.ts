@@ -22,7 +22,7 @@ import { WorkoutType } from '../models/workout-type.model';
   ],
 })
 export class AddWorkoutComponent {
-  @Output() workoutAdded = new EventEmitter<Partial<Workout>>();  // Emits workout data to parent component
+  @Output() workoutAdded = new EventEmitter<Partial<Workout>>();
 
   dialogVisible: boolean = false;
   userName: string = '';
@@ -38,34 +38,30 @@ export class AddWorkoutComponent {
   durationError: boolean = false;
   typeError: boolean = false;
 
-  // Shows the dialog to add a workout
   showDialog() {
     this.dialogVisible = true;
   }
 
-  // Hides the dialog and resets the form and error states
   hideDialog() {
     this.dialogVisible = false;
     this.resetErrors();
     this.resetForm();
   }
 
-  // Resets the form fields to their initial state
   resetForm() {
     this.userName = '';
     this.workoutDuration = null;
     this.selectedWorkoutType = '';
   }
 
-  // Resets all error flags to false
   resetErrors() {
     this.nameError = false;
     this.durationError = false;
     this.typeError = false;
   }
 
-  // Validates the form and emits the workout data if all fields are valid
   addWorkout() {
+    // Input error validation
     this.resetErrors();
 
     if (!this.userName) {
@@ -78,6 +74,7 @@ export class AddWorkoutComponent {
       this.typeError = true;
     }
 
+    // In case all the values are appropriate
     if (this.userName && this.workoutDuration && this.selectedWorkoutType) {
       const workout = {
         userName: this.userName,
