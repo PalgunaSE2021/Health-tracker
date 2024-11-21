@@ -26,6 +26,21 @@ Manage workout data:
 6.Chart: Implemented using PrimeNG's p-chart, provides a visual representation of workout data, enabling users to analyze their selected workout types. 
 <img width="886" alt="image" src="https://github.com/user-attachments/assets/65a6bd66-f30d-44d9-8524-270f74634d8e">
 
+Sample test report screenshots:
+Components:
+<img width="960" alt="test_report_workout_chart_2" src="https://github.com/user-attachments/assets/dbd53fe5-0eae-4e26-834b-5068edfbb639">
+<img width="932" alt="test_report_workout_chart" src="https://github.com/user-attachments/assets/f1051014-21d4-41de-8504-9f5be5197629">
+<img width="959" alt="test_report_user_selector_component" src="https://github.com/user-attachments/assets/d928445c-c755-47c4-8b02-421c4f9abe1c">
+<img width="958" alt="test_report_user_selector_2" src="https://github.com/user-attachments/assets/6d7376ab-a075-4e73-a68e-6a96f6f4050f">
+
+Workout service:
+<img width="960" alt="test_report_service" src="https://github.com/user-attachments/assets/7c1f9096-bcb3-4037-9674-c53efe03446e">
+<img width="805" alt="test_report_service_2" src="https://github.com/user-attachments/assets/43e5695e-3aea-4031-a893-966850a392b9">
+
+All files (being updated):
+<img width="960" alt="test_report_all_files" src="https://github.com/user-attachments/assets/39aa0265-5c91-4540-9554-413e1d7d4662">
+<img width="572" alt="test_report_terminal" src="https://github.com/user-attachments/assets/68ad714c-ccc5-4b18-91db-ca61368cd448">
+
 
 Installation steps:
 - Clone the repository: `git clone https://github.com/your-username/workout-tracker-app.git`
