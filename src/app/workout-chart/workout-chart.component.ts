@@ -24,7 +24,6 @@ export class WorkoutChartComponent implements OnChanges {
 
   // Method to prepare chart data and chart options
   private prepareChart() {
-    const documentStyle = getComputedStyle(document.documentElement);
     const textColor = 'white';
     const textColorSecondary = 'white';
     const surfaceBorder = '#082f49';
@@ -105,7 +104,7 @@ export class WorkoutChartComponent implements OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['selectedWorkoutForChart'] && this.selectedWorkoutForChart) {
+    if (changes['selectedWorkoutForChart']?.currentValue) {
       // When selectedWorkoutForChart changes, update the chart data
       this.prepareChart();
     }
