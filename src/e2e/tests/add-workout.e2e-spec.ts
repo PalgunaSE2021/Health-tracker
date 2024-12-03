@@ -2,9 +2,7 @@ import { test, expect } from '@playwright/test';
 
 test.describe('Add Workout', () => {
   test('should add a new workout', async ({ page }) => {
-    // Navigate to the workout page
-    await page.goto('https://my-fitness-tracker.netlify.app/'); // Replace with your actual route
-
+    await page.goto('https://my-fitness-tracker.netlify.app/'); 
     // Click on the "Add Workout" button
     await page.click('text=Add Workout');
 
@@ -29,10 +27,8 @@ test.describe('Add Workout', () => {
     // Click the "Add" button inside the dialog
     await page.click('p-dialog button.p-button-primary:has-text("Add")');
 
-    // Wait for the form submission to complete (you can wait for a loading spinner or the table to be updated)
-    await page.waitForSelector('text=Palguna'); // Ensure the workout appears in the list
+    await page.waitForSelector('text=Palguna'); 
 
-    // Assert the new workout is added to the list
     const workoutExists = await page.isVisible('text=Palguna');
     expect(workoutExists).toBeTruthy();
   });
